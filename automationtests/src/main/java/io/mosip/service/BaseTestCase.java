@@ -19,6 +19,7 @@ import java.util.Properties;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
@@ -113,7 +114,7 @@ public class BaseTestCase{
 	
 	public static void initialize()
 	{
-		BasicConfigurator.configure();
+		PropertyConfigurator.configure(getLoggerPropertyConfig());
 		
 		/**
 		 * Make sure test-output is there 
@@ -155,10 +156,10 @@ public class BaseTestCase{
 			initialize();
 			logger.info("Done with BeforeSuite and test case setup! BEGINNING TEST EXECUTION!\n\n");
 
-			PreRegistrationLibrary pil=new PreRegistrationLibrary();
+			/*PreRegistrationLibrary pil=new PreRegistrationLibrary();
 			pil.PreRegistrationResourceIntialize();
 			new PreregistrationDAO().deleteAvailableSlot();
-			new PreregistrationDAO().makeAllRegistartionCenterActive();
+			new PreregistrationDAO().makeAllRegistartionCenterActive();*/
 			AuthTestsUtil.initiateAuthTest();
 			//authToken=pil.getToken();
 			/*htmlReporter=new ExtentHtmlReporter(System.getProperty("user.dir")+"/test-output/MyOwnReport.html");
@@ -188,7 +189,7 @@ public class BaseTestCase{
 		 * After the entire test suite clean up rest assured
 		 */
 		@AfterSuite(alwaysRun = true)
-		public void testTearDown(ITestContext ctx) {
+		public void testTearDown() {
 			
 			
 			/*Calling up PreReg DB clean Up step*/
@@ -221,7 +222,18 @@ public class BaseTestCase{
 			//extent.flush();
 		} // end testTearDown
 
-	
+		private static Properties getLoggerPropertyConfig() {
+			Properties logProp = new Properties();
+			logProp.setProperty("log4j.rootLogger", "INFO, Appender1,Appender2");
+			logProp.setProperty("log4j.appender.Appender1", "org.apache.log4j.ConsoleAppender");
+			logProp.setProperty("log4j.appender.Appender1.layout", "org.apache.log4j.PatternLayout");
+			logProp.setProperty("log4j.appender.Appender1.layout.ConversionPattern", "%-7p %d [%t] %c %x - %m%n");
+			logProp.setProperty("log4j.appender.Appender2", "org.apache.log4j.FileAppender");
+			logProp.setProperty("log4j.appender.Appender2.File", "src/logs/mosip-api-test.log");
+			logProp.setProperty("log4j.appender.Appender2.layout", "org.apache.log4j.PatternLayout");
+			logProp.setProperty("log4j.appender.Appender2.layout.ConversionPattern", "%-7p %d [%t] %c %x - %m%n");
+			return logProp;
+		}
 		
 	
 	}
