@@ -134,7 +134,7 @@ testdata:
          rname: Demo String
       output.output-1-expected-error-response:  
          errorCodeerrors0: $errors:CommonMSDErrorCode:errorCode$
-         messageerrors0: $errors:CommonMSDErrorMssg_InvalidLanguageCode:errorMessage_incorrect$
+         messageerrors0: Language Code is Invalid
          responsetime: $IGNORE$
          
    Admin_UpdateDocumentType_Invalid_isActive_Blank:
@@ -158,7 +158,7 @@ testdata:
          rname: Demo String
       output.output-1-expected-error-response:  
          errorCodeerrors0: $errors:CommonMSDErrorCode:errorCode$
-         messageerrors0: $errors:CommonMSDErrorMssg_IsActive:errorMessage_invalidVal$
+         messageerrors0: 'Invalid Format in field : isActive'
          responsetime: $IGNORE$
          
    Admin_UpdateDocumentType_Invalid_Code_NonExistence:
@@ -170,7 +170,7 @@ testdata:
          rname: demostring
       output.output-1-expected-error-response:  
          errorCodeerrors0: KER-MSD-118
-         messageerrors0: $errors:DocTypeNonExistence:errorMessage_DocCodeNE$
+         messageerrors0: Document Type not found
          responsetime: $IGNORE$
          
    Admin_UpdateDocumentType_Invalid_Name_65Char:
@@ -206,7 +206,7 @@ testdata:
          rname: demostring
       output.output-1-expected-error-response:  
          errorCodeerrors0: $errors:CommonMSDErrorCode:errorCode$
-         messageerrors0: $errors:CommonMSDErrorMssg_InvalidLanguageCode:errorMessage_incorrect$
+         messageerrors0: Language Code is Invalid
          responsetime: $IGNORE$
          
    
