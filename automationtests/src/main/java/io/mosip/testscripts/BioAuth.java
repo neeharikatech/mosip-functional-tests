@@ -41,7 +41,9 @@ public class BioAuth extends AdminTestUtil implements ITest {
 	private static final Logger logger = Logger.getLogger(BioAuth.class);
 	protected String testCaseName = "";
 	public Response response = null;
-	public boolean isInternal = false;
+	//public boolean isInternal = false;
+
+	public boolean isInternal = true;
 
 	@BeforeClass
 	public static void setPrerequiste() {
@@ -65,7 +67,8 @@ public class BioAuth extends AdminTestUtil implements ITest {
 	@DataProvider(name = "testcaselist")
 	public Object[] getTestCaseList(ITestContext context) {
 		String ymlFile = context.getCurrentXmlTest().getLocalParameters().get("ymlFile");
-		isInternal = Boolean.parseBoolean(context.getCurrentXmlTest().getLocalParameters().get("isInternal"));
+		//isInternal = Boolean.parseBoolean(context.getCurrentXmlTest().getLocalParameters().get("isInternal"));
+		isInternal =true;
 		logger.info("Started executing yml: " + ymlFile);
 		return getYmlTestData(ymlFile);
 	}
@@ -82,6 +85,7 @@ public class BioAuth extends AdminTestUtil implements ITest {
 	@Test(dataProvider = "testcaselist")
 	public void test(TestCaseDTO testCaseDTO) throws AuthenticationTestException, AdminTestException {
 		testCaseName = testCaseDTO.getTestCaseName();
+		isInternal =true;
 		if(testCaseDTO.getEndPoint().contains("$partnerKeyURL$"))
 		{
 			testCaseDTO.setEndPoint(testCaseDTO.getEndPoint().replace("$partnerKeyURL$", props.getProperty("partnerKeyURL")));
